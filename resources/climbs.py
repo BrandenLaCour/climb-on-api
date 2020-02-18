@@ -61,3 +61,14 @@ def show_climb(id):
     climb = models.Climb.get_by_id(id)
     climb_dict = model_to_dict(climb)
     return jsonify(data=climb_dict, message='retrived climb {}'.format(climb_dict['name']), status=200), 200
+
+
+@climbs.route('/member/<memberid>', methods=['GET'])
+def get_members_climbs(memberid):
+    member = models.User.get_by_id(memberid)
+    member_dict = model_to_dict(member)
+    climbs_dict = [model_to_dict(climb) for climb in member.climbs]
+  
+    return jsonify(data=climbs_dict, message='successfully retreived {} climbs from user {}'.format(len(climbs_dict), member_dict['username'] ), status=200),200
+
+    

@@ -48,3 +48,4 @@ def login():
 def logout():
     logout_user()
     return jsonify(data={}, message='logged out successfully', status=200), 200
+

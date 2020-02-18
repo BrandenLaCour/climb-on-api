@@ -40,6 +40,7 @@ def update_climb(id):
     except models.DoesNotExist:
         return jsonify(data={}, message='cannot update climb, is not connected to user', status=200), 200
 
+#delete route
 @climbs.route('/<id>', methods=['Delete'])
 @login_required
 def delete(id):
@@ -53,3 +54,10 @@ def delete(id):
 
     except models.DoesNotExist:
         return jsonify(data={}, message='cannot delete climb, is not connected to user', status=200), 200
+
+#show route
+@climbs.route('/<id>', methods=['GET'])
+def show_climb(id):
+    climb = models.Climb.get_by_id(id)
+    climb_dict = model_to_dict(climb)
+    return jsonify(data=climb_dict, message='retrived climb {}'.format(climb_dict['name']), status=200), 200

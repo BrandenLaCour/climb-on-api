@@ -26,10 +26,14 @@ def load_user(userid):
 def unauthorized():
     return jsonify(data={'error': 'user has not logged in'}, message="you must login to access that resource", status=401), 401
 
-
+CORS(climbs, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(climbs, url_prefix='/api/v1/climbs')
 app.register_blueprint(users, url_prefix='/api/v1/users')
+
+
+
 
 @app.route('/', methods=['GET'])
 def hello_world():

@@ -8,8 +8,9 @@ class User(UserMixin, Model):
     username=CharField(unique=True)
     password=CharField()
     email=CharField()
-    city=CharField()
-    picture=CharField()
+    city=CharField(default = '')
+    picture=CharField(default = 'https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/')
+
     class Meta():
         database = DATABASE
 

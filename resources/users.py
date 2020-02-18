@@ -38,8 +38,13 @@ def login():
         password_good = check_password_hash(user.password, payload['password'])
         if password_good:
             login_user(user)
-            return jsonify(data={}, message='{} logged in successfully'.format(user_dict['username']), status=200), 200
+            return jsonify(data=user_dict, message='{} logged in successfully'.format(user_dict['username']), status=200), 200
         else:
             return jsonify(data={}, message='username or password incorrect', status=200), 200
     except models.DoesNotExist:
         return jsonify(data={}, message='username or password incorrect', status=200), 200
+
+@users.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return jsonify(data={}, message='logged out successfully', status=200), 200

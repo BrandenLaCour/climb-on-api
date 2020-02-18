@@ -20,9 +20,9 @@ class Climb(Model):
     grade=CharField()
     location=CharField()
     date=DateField()
-    rating=CharField()
-    thoughts=CharField()
-    picture=CharField()
+    rating=SmallIntegerField()
+    thoughts=CharField(default='')
+    picture=CharField(default='https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png')
     user=ForeignKeyField(User, backref='climbs')
 
     class Meta():

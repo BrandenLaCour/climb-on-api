@@ -24,6 +24,7 @@ def create_climb():
     created_climb_dict['user'].pop('password')
     return jsonify(data=created_climb_dict, message='successfully created climb {}'.format(created_climb_dict['name']), status=200), 200
 
+#Update route
 @climbs.route('/<id>', methods=['PUT'])
 @login_required
 def update_climb(id):
@@ -38,3 +39,17 @@ def update_climb(id):
 
     except models.DoesNotExist:
         return jsonify(data={}, message='cannot update climb, is not connected to user', status=200), 200
+
+@climbs.route('/<id>', methods=['Delete'])
+@login_required
+def delete(id):
+    payload = request.get_json()
+    try:
+        models.Climb.get(models.Climb.user == current_user.id)
+        delete_query = models.Climb.delete().where(models.Climb.id == id)
+        delete_query.execute()
+       
+        return jsonify(data={}, message='successfully deleted climb with id {}'.format(id), status=200),200
+
+    except models.DoesNotExist:
+        return jsonify(data={}, message='cannot delete climb, is not connected to user', status=200), 200

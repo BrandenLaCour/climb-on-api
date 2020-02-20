@@ -1,8 +1,13 @@
+import os
 from peewee import *
 from flask_login import UserMixin
+from playhouse.db_url import connect
 
-DATABASE  = SqliteDatabase('climbs.sqlite')
+if 'ON_HEROKU' in os.environ:
+    DATABASE = connect(os.environ.get('DATABASE_URL'))
 
+else:
+  DATABASE = SqliteDatabase('climbs.sqlite')
 
 class User(UserMixin, Model):
     username=CharField(unique=True)

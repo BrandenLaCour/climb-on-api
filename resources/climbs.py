@@ -29,6 +29,7 @@ def create_climb():
 @login_required
 def update_climb(id):
     payload = request.get_json()
+    print(payload)
     try:
         models.Climb.get(models.Climb.user == current_user.id)
         update_query = models.Climb.update(**payload).where(models.Climb.id == id)

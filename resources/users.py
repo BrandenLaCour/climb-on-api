@@ -31,7 +31,7 @@ def register():
 @users.route('/login', methods=["POST"])
 def login():
     payload = request.get_json()
-
+    print(payload)
     try:
         user = models.User.get(models.User.username == payload['username'])
         user_dict = model_to_dict(user)
@@ -49,3 +49,8 @@ def logout():
     logout_user()
     return jsonify(data={}, message='logged out successfully', status=200), 200
 
+@users.route('/all', methods=['GET'])
+def get_users():
+    all_users = models.User.select()
+    all_users_dict = [model_to_dict(user) for user in all_users]
+    return jsonify(data=all_users_dict, message=f"successfully retrieved {len(all_users_dict)} users", status=200), 200
